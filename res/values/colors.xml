@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="back_blue">#339BCB</color>
+    <color name="btn_no_login_white">#99FFFFFF</color>
+    <color name="white">#FFFFFF</color>
+    <color name="back_fragment_main_line">#246C8E</color>
+    <color name="back_gray_line">#D0D0D0</color>
+    <color name="tv_receipt_money">#009cde</color>
+    <color name="tv_receipt_amount">#9a9c9e</color>
+    <color name="tv_receipt_num">#34393f</color>
+    <color name="layout_reveipt_back">#f9f9fb</color>
+    <color name="back_gray">#F6F7FB</color>
+    <color name="tv_text_blue">#ff1875B2</color>
+    <color name="tv_text_no_blue">#661875B2</color>
+    <color name="black">#000000</color>
+    <color name="tv_9_black">#999999</color>
+    <color name="tv_6_black">#666666</color>
+    <color name="tv_3_black">#333333</color>
+    <color name="tv_4_black">#444444</color>
+    <color name="tv_4_hint_black">#4D444444</color>
+    <color name="tv_detail_blue">#9DB1C9</color>
+    <color name="transparent">#55000000</color>
+    <color name="watermelon">#FFE2CF</color>
+    <color name="red_light">#ffff4444</color>
+    <color name="device_select">#260095d0</color>
+    <color name="money_color">#ffEE9572</color>
+    <color name="back_list_zero">#F3F3F3</color>
+    <color name="viewfinder_mask">#60000000</color>
+    <color name="result_view">#b0000000</color>
+    <color name="possible_result_points">#c0ffff00</color>
+    <color name="yellow">#E74610</color>
+    <color name="tv_settle_state">#5ABE6E</color>
+    <color name="red"> #ffff4444</color>
+    <color name="cashier_menu"> #003e57</color>
+    <color name="tv_cashier_menu"> #d3d3d3</color>
+    <color name="vouchers_gold">#FDFB00</color>
+    <color name="vouchers_red">#E94929</color>
+    <color name="color_makeit">#f53c29</color>
+    <color name="color_daifeedback">#fca309</color>
+    <color name="color_dai_pingjia">#4474b4</color>
+    <color name="color_daiqueren">#65ae3d</color>
+
+</resources>
