@@ -9,10 +9,9 @@ public class FaceRecognizationapp extends Application{
 
 	@Override
 	public void onCreate() {
-		SpeechUtility
-		.createUtility(this, "appid=" + getString(R.string.app_id));
-//		CrashHandler crashHandler = CrashHandler.getInstance();
-//		crashHandler.init(getApplicationContext());
+		
+		//采用科大讯飞的sdk,注册appid
+		SpeechUtility.createUtility(this, "appid=" + getString(R.string.app_id));
 		super.onCreate();
 	};
 }

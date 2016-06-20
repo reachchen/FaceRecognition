@@ -8,8 +8,8 @@ import android.graphics.Rect;
  *         FaceRect是用于表示人脸检测的结果，其中包括了 人脸的角度、得分、检测框位置、关键点
  */
 public class FaceRect {
+	
 	public float score;
-
 	public Rect bound = new Rect();
 	public Point point[];
 

@@ -15,7 +15,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class FaceActivity extends FragmentActivity implements OnClickListener {
-
 	/**
 	 * actionbar
 	 */
@@ -23,17 +22,12 @@ public class FaceActivity extends FragmentActivity implements OnClickListener {
 	ImageView img_left;
 	View actionBar;
 	FaceFragment mFaceFragment;
-
 	@Override
 	protected void onCreate(Bundle arg0) {
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
 				WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		super.onCreate(arg0);
-//		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-//			getWindow().addFlags(
-//					WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-//		}
 		setContentView(R.layout.activity_parent);
 		initActionbar();
 		mFaceFragment = new FaceFragment();
@@ -46,7 +40,6 @@ public class FaceActivity extends FragmentActivity implements OnClickListener {
 		actionBar.setVisibility(View.VISIBLE);
 		tv_title = (TextView) actionBar.findViewById(R.id.tv_action_title);
 		img_left = (ImageView) actionBar.findViewById(R.id.img_action_left);
-
 		img_left.setVisibility(View.VISIBLE);
 		img_left.setOnClickListener(this);
 		initTilte();

@@ -1,4 +1,4 @@
-package com.paytend.jcd.internet;
+package com.andychen.facerecognization.intent;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;

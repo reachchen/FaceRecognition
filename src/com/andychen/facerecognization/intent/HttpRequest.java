@@ -1,4 +1,4 @@
-package com.paytend.jcd.internet;
+package com.andychen.facerecognization.intent;
 
 import java.net.URLConnection;
 import java.util.HashMap;

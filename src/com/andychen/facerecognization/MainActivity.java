@@ -12,14 +12,12 @@ import android.widget.Button;
 public class MainActivity extends Activity {
 
 	private Button btn_facerecognition;
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		btn_facerecognition = (Button) findViewById(R.id.btn_facerecognition);
 		btn_facerecognition.setOnClickListener(new OnClickListener() {
-			
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub

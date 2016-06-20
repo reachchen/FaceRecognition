@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#2A2A32" >
-
     <com.andychen.facerecognization.face.CameraSurfaceView
         android:id="@+id/surface_fragment_face_preview"
         android:layout_width="wrap_content"

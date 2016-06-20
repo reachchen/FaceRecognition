@@ -8,7 +8,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Map;
 
-import com.paytend.jcd.internet.HttpUtils;
+import com.andychen.facerecognization.intent.HttpUtils;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

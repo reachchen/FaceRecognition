@@ -1,4 +1,4 @@
-package com.paytend.jcd.internet;
+package com.andychen.facerecognization.intent;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

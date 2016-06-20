@@ -13,7 +13,6 @@ import android.text.TextUtils;
 public class ParseResult {
 	/**
 	 * 离线人脸框结果解析方法
-	 * 
 	 * @param json
 	 * @return
 	 */
@@ -39,7 +38,6 @@ public class ParseResult {
 				rect[i].bound.top = position.getInt("top");
 				rect[i].bound.right = position.getInt("right");
 				rect[i].bound.bottom = position.getInt("bottom");
-
 				FacePosition.getInstance().setBottom(rect[i].bound.bottom);
 				FacePosition.getInstance().setLeft(rect[i].bound.left);
 				FacePosition.getInstance().setRight(rect[i].bound.right);
@@ -77,7 +75,6 @@ public class ParseResult {
 						}
 
 						JSONObject postion = landmark.getJSONObject(key);
-
 						rect[i].point[point] = new Point(postion.getInt("x"),
 								postion.getInt("y"));
 						point++;

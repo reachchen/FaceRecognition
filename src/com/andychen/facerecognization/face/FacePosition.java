@@ -7,7 +7,6 @@ public class FacePosition {
 	
 	public FacePosition(){
 	}
-	
 	public static synchronized FacePosition getInstance(){
 		if (facePosition ==null) {
 			facePosition = new FacePosition();

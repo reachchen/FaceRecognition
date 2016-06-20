@@ -1,11 +1,7 @@
 package com.andychen.facerecognization.fragmnet;
 
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
+import java.util.List;
 import Decoder.BASE64Encoder;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -29,12 +25,9 @@ import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.andychen.facerecognization.R;
-import com.andychen.facerecognization.db.Mearchan;
 import com.andychen.facerecognization.db.StaticArguments;
 import com.andychen.facerecognization.db.UploadResult;
-import com.andychen.facerecognization.db.UserInfo;
 import com.andychen.facerecognization.face.CameraInterface;
 import com.andychen.facerecognization.face.CameraSurfaceView;
 import com.andychen.facerecognization.face.FaceEyebrow;
@@ -43,36 +36,31 @@ import com.andychen.facerecognization.face.FacePosition;
 import com.andychen.facerecognization.face.FaceRect;
 import com.andychen.facerecognization.face.FaceUtil;
 import com.andychen.facerecognization.face.ParseResult;
+import com.andychen.facerecognization.intent.StringUtils;
+import com.andychen.facerecognization.intent.HttpUtils.HttpListener;
 import com.andychen.facerecognization.listener.TakePictureListener;
 import com.andychen.facerecognization.util.ImageUtils;
 import com.andychen.facerecognization.view.LoadingDialog;
 import com.andychen.facerecognization.view.ShowToast;
 import com.iflytek.cloud.FaceDetector;
 import com.iflytek.cloud.util.Accelerometer;
-import com.paytend.jcd.internet.HttpUtils.HttpListener;
-import com.paytend.jcd.internet.StringUtils;
 
 public class FaceFragment extends Fragment implements HttpListener {
-
 	// Camera nv21格式预览帧的尺寸，默认设置640*480
-	private int PREVIEW_WIDTH = 640;
+	private int PREVIEW_WIDTH  = 640;
 	private int PREVIEW_HEIGHT = 480;
 	// 预览帧数据存储数组和缓存数组
 	private byte[] nv21;
 	private byte[] buffer;
-
 	// FaceDetector对象，集成了离线人脸识别：人脸检测、视频流检测功能
 	private FaceDetector mFaceDetector;
 	private Canvas mCanvas;
-
 	// 加速度感应器，用于获取手机的朝向
 	private Accelerometer mAcceler;
-
 	private boolean mStopTrack;
 	// 是否显示聚焦点 0不显示 1显示
 	private int isAlign = 1;
 	protected int mCameraId = CameraInfo.CAMERA_FACING_FRONT;
-
 	private boolean isOpenMouth = false;
 	private boolean isShakeHead = false;
 	private TextView tv_notice;
@@ -97,7 +85,6 @@ public class FaceFragment extends Fragment implements HttpListener {
 	 */
 	int takePictureFlag = 0;
 	BASE64Encoder mBASE64Encoder;
-
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -105,11 +92,12 @@ public class FaceFragment extends Fragment implements HttpListener {
 			mFaceView = inflater.inflate(R.layout.fragment_face, null);
 			mPreviewSurface = (CameraSurfaceView) mFaceView
 					.findViewById(R.id.surface_fragment_face_preview);
-
 			mFaceSurface = (SurfaceView) mFaceView
 					.findViewById(R.id.surface_fragment_face_face);
+			//mFaceSurface置于窗口的最顶层
 			mFaceSurface.setZOrderOnTop(true);
 			mFaceSurface.getHolder().setFormat(PixelFormat.TRANSLUCENT);
+			//设置预览界面的尺寸
 			setSurfaceSize();
 			tv_notice = (TextView) mFaceView
 					.findViewById(R.id.tv_fragment_face_notice);
@@ -129,15 +117,14 @@ public class FaceFragment extends Fragment implements HttpListener {
 	}
 
 	private void setSurfaceSize() {
+		
 		DisplayMetrics metrics = new DisplayMetrics();
 		getActivity().getWindowManager().getDefaultDisplay()
 				.getMetrics(metrics);
-
 		int width = metrics.widthPixels;
 		int height = (int) (width * PREVIEW_WIDTH / (float) PREVIEW_HEIGHT);
 		RelativeLayout.LayoutParams params = new LayoutParams(width, height);
 		params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-
 		mPreviewSurface.setLayoutParams(params);
 		mFaceSurface.setLayoutParams(params);
 	}
@@ -148,7 +135,6 @@ public class FaceFragment extends Fragment implements HttpListener {
 		// .getPreviewDate();
 		// buffer = (byte[]) previewDate.get(0);
 		// nv21 = (byte[]) previewDate.get(1);
-
 		mAcceler = new Accelerometer(getActivity());
 		mFaceDetector = FaceDetector.createDetector(getActivity(), null);
 		mBASE64Encoder = new BASE64Encoder();
@@ -166,7 +152,6 @@ public class FaceFragment extends Fragment implements HttpListener {
 		setFaceDetection();
 		CameraInterface.getInstance().setOnTakePictureListener(
 				new TakePictureListener() {
-
 					@Override
 					public void onTakePictuerResult(Bitmap mBitmap) {
 						String bitMapStr = getImage(mBitmap);
@@ -187,7 +172,6 @@ public class FaceFragment extends Fragment implements HttpListener {
 		}
 		mStopTrack = true;
 	}
-
 	@Override
 	public void onDestroy() {
 		// TODO Auto-generated method stub
@@ -198,7 +182,6 @@ public class FaceFragment extends Fragment implements HttpListener {
 		mFaceDetector.destroy();
 
 	}
-
 	/**
 	 * 人脸检测
 	 */
@@ -214,11 +197,9 @@ public class FaceFragment extends Fragment implements HttpListener {
 					if (null == nv21) {
 						continue;
 					}
-
 					synchronized (nv21) {
 						System.arraycopy(nv21, 0, buffer, 0, nv21.length);
 					}
-
 					// 获取手机朝向，返回值0,1,2,3分别表示0,90,180和270度
 					int direction = Accelerometer.getDirection();
 					boolean frontCamera = (Camera.CameraInfo.CAMERA_FACING_FRONT == mCameraId);
@@ -245,7 +226,6 @@ public class FaceFragment extends Fragment implements HttpListener {
 
 				}
 			}
-
 			/**
 			 * 绘制人脸框，并进行活体检测
 			 * 
@@ -404,10 +384,11 @@ public class FaceFragment extends Fragment implements HttpListener {
 			case StaticArguments.FACE_HAS_TAKE_PPICTURE:
 				if (takePictureFlag == 0) {
 					takePictureFlag++;
-
+					ShowToast.showToast(getActivity(), "将张嘴拍照上传到指定的路径");
+					//上传人脸识别的照片
 					upLoadFace((String) msg.obj, 21);
 				} else if (takePictureFlag == 1) {
-
+					ShowToast.showToast(getActivity(), "将摇头拍照上传到指定的路径");
 					upLoadFace((String) msg.obj, 22);
 				}
 				break;
@@ -454,87 +435,28 @@ public class FaceFragment extends Fragment implements HttpListener {
 
 	public void upLoadFace(String file_image_String, int flag) {
 		if (flag == 22) {
-//			LoadingDialog
-//					.showDialog(getActivity(), R.string.txt_loading, false);
 			Toast.makeText(getActivity(), "检测到左右摇头,完成人脸识别", 0).show();
 		}
-//		String mearchantId = UserInfo.getInfo().getMerchantId();
-//		String signature = "";
-//		String type = flag + "";
-//		Map<String, String> mMap = new HashMap<String, String>();
-//		try {
-//			signature = Util.calcMD5(mearchantId + type + file_image_String
-//					+ HttpURL.CK);
-//		} catch (NoSuchAlgorithmException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (UnsupportedEncodingException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		mMap.put("URL", HttpURL.uploadInfo);
-//		mMap.put("userId", mearchantId);
-//		mMap.put("type", type);
-//		mMap.put("imageData", file_image_String);
-//		mMap.put("signature", signature);
-//		HttpUtils.httpPost(mMap, this, flag);
 
 	}
 
 	private String getImage(Bitmap bitmap) {
-
 		byte[] file_image_bytes = ImageUtils.bitmapToByte(bitmap);
 		String bitMapStr = mBASE64Encoder.encodeBuffer(file_image_bytes);
 		return bitMapStr;
 	}
-
 	@Override
 	public void onPreGet() {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void onPostGet(Message message) {
 		switch (message.what) {
-//		case 22:
-//			LoadingDialog.closeDialog();
-//			String myHttpResponse = (String) message.obj;
-//			if (myHttpResponse == null || StringUtils.isEmpty(myHttpResponse)) {
-//
-//			} else {
-//				UploadResult mUploadResult = HttpUtil
-//						.getUploadResult(myHttpResponse);
-//				if (mUploadResult != null && mUploadResult.isFlag()) {
-//					Mearchan.getMearchan().getBitMapId()[5] = mUploadResult
-//							.getId();
-//					Mearchan.getMearchan().getBitMapStatus()[5] = "0";
-//					// mMearchan.getBitMapId()[0] = mUploadResult.getId();
-//				} else {
-//
-//				}
-//			}
-//			getActivity().setResult(StaticArguments.REG_FACE);
-//			getActivity().finish();
-//			break;
-		case 21:
-
-//			String mHttpResponse = (String) message.obj;
-//			if (mHttpResponse == null || StringUtils.isEmpty(mHttpResponse)) {
-//
-//			} else {
-//				UploadResult mUploadResult = HttpUtil
-//						.getUploadResult(mHttpResponse);
-//				if (mUploadResult != null && mUploadResult.isFlag()) {
-//					Mearchan.getMearchan().getBitMapId()[4] = mUploadResult
-//							.getId();
-//					Mearchan.getMearchan().getBitMapStatus()[4] = "0";
-//				} else {
-//
-//				}
-//			}
+		case 22:
 			break;
-
+		case 21:
+			break;
 		default:
 			break;
 		}
